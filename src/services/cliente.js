@@ -1,10 +1,10 @@
-// import api from '../plugins/api'
+import api from '../plugins/api'
 
-// class ClienteService {
-//     async saveCliente(cliente) {
-//         const response = await api.post('/clientes/', cliente)
-//         return response.data
-//     }
-// }
+class ClienteService {
+    async saveCliente(cliente) {
+        const response = await api.post('/clientes/', cliente)
+        return response.data
+    }
+}
 
-// export default new ClienteService()
+export default new ClienteService()
