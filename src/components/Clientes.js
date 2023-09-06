@@ -1,57 +1,44 @@
-import { StatusBar } from 'expo-status-bar';
-import { View, Text, Button, StyleSheet, TextInput } from 'react-native'
-import clienteService from '../services/cliente';
+import React from "react";
+import { View, Text, StyleSheet, StatusBar } from "react-native"
+import { Button } from "react-native";
+
+import clienteService from '/src/services/clientes.js';
 import { useEffect, useState } from 'react';
 
-const [clientes, setClientes] = useState([]);
 
-useEffect(async () => {
-    const data = await clienteService.getAllClientes();
-    setClientes(data);
-}, []);
+export default function Clientes({ cliente, navigation }) {
+    const [clientes, setClientes] = useState([]);
 
-async function saveClientes() {
-    const data = await clienteService.getAllClientes();
-    setClientes(data);
-}
+    useEffect(async () => {
+        const data = await clienteService.getAllClientes();
+        setClientes(data);
+    }, []);
 
-const Clientes = ({ clientes, navigation }) => {
+    async function updateClientes(cliente) {
+        const data = await clienteService.getAllClientes();
+        setClientes(data);
+    }
+
     return (
-        <View style={styles.form}>
-            <Text style={styles.h1}
-            >Cadastro de Clientes</Text>
-            {clientes.map((cliente) => (
-                <TextInput
-                    key={cliente.id}
-                    style={styles.text}
-                    label={'nome'}
-                    placeholder={'Digite seu nome'}
-                >{cliente.name}</TextInput>,
-                <TextInput
-                    key={cliente.id}
-                    style={styles.text}
-                    label={'email'}
-                    placeholder={'Digite seu e-mail'}
-                >{cliente.email}</TextInput>,
-                <TextInput
-                    key={cliente.id}
-                    style={styles.text}
-                    label={'telefone'}
-                    placeholder={'Digite seu telefone'}
-                >{cliente.telefone}</TextInput>,
-                <TextInput
-                    key={cliente.id}
-                    style={styles.text}
-                    label={'endereco'}
-                    placeholder={'Digite seu endereco'}
-                >{cliente.endereco}</TextInput>
-            ))}
-            <View>
+        <View>
+            <View style={styles.addButton}>
                 <Button
-                    title='Enviar'
-                    onPress={() => saveClientes()}
+                    title="Cadastar Novo Cliente"
+                    onPress={() => navigation.navigate("Cadastro")}
                 />
-                <StatusBar style="auto" />
+            </View>
+            <View style={styles.form}>
+                <Text style={styles.h1}
+                >Clientes em Espera...</Text>
+                {clientes.map((cliente) => (
+                    <Text >{cliente.nome}</Text>
+                ))}
+                <View>
+                    <Button
+                        title='Atualizar'
+                        onPress={() => updateClientes()} />
+                    <StatusBar style="auto" />
+                </View>
             </View>
         </View>
     );
@@ -59,25 +46,22 @@ const Clientes = ({ clientes, navigation }) => {
 
 const styles = StyleSheet.create({
     form: {
-        margin: 45,
         justifyContent: 'center',
         alignContent: 'center',
-        // alignItems: 'center',
         backgroundColor: '#fff',
-        justifyContent: 'center'
+        padding: 10,
+        borderRadius: 10,
+        width: "auto",
+        margin: 10,
     },
     h1: {
-
         fontWeight: 'bold',
         fontSize: 20,
-        padding: 40,
+        padding: 20,
     },
-    text: {
-        height: 40,
-        margin: 12,
-        padding: 10,
-        borderBottomWidth: 1,
-    },
+    addButton: {
+        margin: 20,
+        width: "50%",
+        alignSelf: "center",
+    }
 });
-
-export default Clientes;
