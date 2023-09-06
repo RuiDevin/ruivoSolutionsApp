@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import Cliente from '/src/components/Clientes';
-import NewCliente from '/src/components/NewCliente'
+import Clientes from './src/components/Clientes';
+import NewCliente from './src/components/NewCliente'
 import { ScrollView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -21,7 +21,7 @@ const ListClientes = ({ navigation }) => {
   return (
     <ScrollView style={styles.scroll}>
       {clienteslist.map((cliente, index) => (
-        <Cliente key={index} cliente={cliente} navigation={navigation} />
+        <Clientes key={index} cliente={cliente} navigation={navigation} />
       ))}
     </ScrollView>
   );

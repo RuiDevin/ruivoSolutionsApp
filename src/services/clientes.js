@@ -1,4 +1,4 @@
-import api from '/src/plugins/api.js'
+import api from '../plugins/api.js'
 
 class ClienteService {
     async getAllClientes() {
